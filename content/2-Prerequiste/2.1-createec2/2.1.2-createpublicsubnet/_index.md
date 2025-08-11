@@ -11,7 +11,8 @@ pre: " <b> 2.1.2 </b> "
 1. Click **Subnets**.  
   + Click **Create subnet**.
 
-![VPC](/000058-SessionManager/"C:\Hugo\000000-Workshop\000000-Workshop\000058-SessionManager\000058-SessionManager\static\images\2.prerequisite\image2.2.12.png")
+![VPC](/000058-SessionManager/images/2.prerequisite/image2.2.12.png)
+
 
 2. On the **Create subnet** page:  
   + In **VPC ID**, select **security-workshop-vpc**.  
