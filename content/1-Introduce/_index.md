@@ -16,7 +16,7 @@ The entire pipeline uses serverless services, including:
 - **AWS Lambda**: Response logic processing
 - **Amazon SNS / DynamoDB**: Multi-layer alerting
 
-![introduce](/images/AWS.png)
+![introduce](/000058-SessionManager/images/AWS.png)
 
 ## System Architecture
 - **GuardDuty**: Detects threats  

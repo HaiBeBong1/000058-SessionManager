@@ -14,7 +14,7 @@ Toàn bộ pipeline sử dụng các dịch vụ serverless như:
 - **Amazon EventBridge**: Lắng nghe và kích hoạt sự kiện
 - **AWS Lambda**: Xử lý logic phản ứng
 - **Amazon SNS / DynamoDB**: Gửi cảnh báo đa tầng
-![introduce](/images/AWS.png)
+![introduce](/000058-SessionManager/images/AWS.png)
 ## Kiến trúc hệ thống
 **GuardDuty**Phát hiện mối đe dọa
 **EventBridge**Bắt sự kiện đe dọa
