@@ -12,14 +12,14 @@ pre: " <b> 2.1.3 </b> "
   + Click **Security Group**.  
   + Click **Create security group**.
 
-![SG](/images/2.prerequisite/image2.2.27.png)
+![SG](/000058-SessionManager/images/2.prerequisite/image2.2.27.png)
 
 2. Configure basic information  
   + **Security Group name**: Enter **Public subnet - SG**  
   + **Description**: Enter **Allow SSH and Ping for servers in public subnet**  
   + **VPC**: Select **security-workshop-vpc**
 
-![SG](/images/2.prerequisite/image2.2.28.png)
+![SG](/000058-SessionManager/images/2.prerequisite/image2.2.28.png)
 
 3. Set up **Inbound Rules**  
   + Click **Add rule**  
@@ -30,7 +30,7 @@ pre: " <b> 2.1.3 </b> "
       - Type: **All ICMP - IPv4**  
       - Source: **Anywhere** (allow ping from anywhere)
 
-![SG](/images/2.prerequisite/image2.2.29.png)
+![SG](/000058-SessionManager/images/2.prerequisite/image2.2.29.png)
 
 4. Verify **Outbound Rules** and create Security Group  
   + Click **Add rule**  
@@ -38,11 +38,11 @@ pre: " <b> 2.1.3 </b> "
   + Destination: **Anywhere (0.0.0.0/0)**  
   + Click **Create security group**.
 
-![SG](/images/2.prerequisite/image2.2.30.png)
+![SG](/000058-SessionManager/images/2.prerequisite/image2.2.30.png)
 
 5. Verify the created Security Group
 
-![SG](/images/2.prerequisite/image2.2.31.png)
+![SG](/000058-SessionManager/images/2.prerequisite/image2.2.31.png)
 
 ---
 
@@ -52,7 +52,7 @@ pre: " <b> 2.1.3 </b> "
   + Click **Security Group**.  
   + Click **Create security group**.
 
-![SG](/images/2.prerequisite/image2.2.32.png)
+![SG](/000058-SessionManager/images/2.prerequisite/image2.2.32.png)
 
 2. Configure basic information for the isolated Security Group  
   + **Security Group name**: Enter `sg-isolated`  
@@ -61,7 +61,7 @@ pre: " <b> 2.1.3 </b> "
 
   > 🎯 This is the security group that will be assigned to EC2 instances detected as compromised — isolating them from the entire network.
 
-![SG](/images/2.prerequisite/image2.2.33.png)
+![SG](/000058-SessionManager/images/2.prerequisite/image2.2.33.png)
 
 3. **Configure Inbound Rules**  
   + Click **Add rule**  
@@ -75,4 +75,4 @@ pre: " <b> 2.1.3 </b> "
   + You can use this Security Group with Lambda or EventBridge to automatically move compromised EC2 instances into isolation.  
   + Click **Create security group** to finish.
 
-![SG](/images/2.prerequisite/image2.2.42.png)
+![SG](/000058-SessionManager/images/2.prerequisite/image2.2.42.png)

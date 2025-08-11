@@ -10,7 +10,7 @@ chapter: false
 In a cloud computing environment, timely detection and response to security threats is critical to protecting your systems.  
 This workshop will guide you through building a **multi-layered security monitoring and alerting solution** on AWS, integrating multiple services to **automatically detect, isolate, and notify when an incident occurs**.
 
-![introduce](/images/AWS.png)
+![introduce](/000058-SessionManager/images/AWS.png)
 This solution will use:
 - **Amazon GuardDuty** to detect unusual behavior and potential threats.
 - **Amazon EventBridge** to process and route security events.

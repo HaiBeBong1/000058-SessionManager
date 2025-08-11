@@ -12,7 +12,7 @@ pre : " <b> 2.1.1 </b> "
   + Click **Your VPC**.
   + Click **Create VPC**.
 
-![VPC](/images/2.prerequisite/image2.2.10.png)
+![VPC](/000058-SessionManager/images/2.prerequisite/image2.2.10.png)
 
 2. Định cấu hình cài đặt VPC.
   + Trong Tài nguyên để tạo, chọn `VPC only`.
@@ -20,4 +20,4 @@ pre : " <b> 2.1.1 </b> "
   + Tại mục **IPv4 CIDR block** điền : `10.10.0.0/16`.
   + Click `Create VPC`.
 
-![VPC](/images/2.prerequisite/image2.2.11.png)
+![VPC](/000058-SessionManager/images/2.prerequisite/image2.2.11.png)

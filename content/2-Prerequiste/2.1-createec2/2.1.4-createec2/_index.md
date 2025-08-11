@@ -10,7 +10,7 @@ pre: " <b> 2.1.4 </b> "
   + Click **Instances**.  
   + Click **Launch instances**.
 
-![EC2](/images/2.prerequisite/image2.2.36.png)
+![EC2](/000058-SessionManager/images/2.prerequisite/image2.2.36.png)
 
 2. In the Instance configuration  
   + Set **Name and tags**: enter **EC2**  
@@ -19,13 +19,13 @@ pre: " <b> 2.1.4 </b> "
   + Choose **Amazon Linux 2**  
   + Select the appropriate AMI version
 
-![EC2](/images/2.prerequisite/image2.2.37.png)
+![EC2](/000058-SessionManager/images/2.prerequisite/image2.2.37.png)
 
 3. Configure Instance and Key Pair  
   + Select **Instance type**: **t2.micro**  
   + Click **Create new key pair**
 
-![EC2](/images/2.prerequisite/image2.2.38.png)
+![EC2](/000058-SessionManager/images/2.prerequisite/image2.2.38.png)
 
 4. Create a new Key Pair  
   + **Key pair name**: enter **kpair**  
@@ -33,7 +33,7 @@ pre: " <b> 2.1.4 </b> "
   + **Private key format**: select **.pem**  
   + Click **Create key pair**
 
-![EC2](/images/2.prerequisite/image2.2.39.png)
+![EC2](/000058-SessionManager/images/2.prerequisite/image2.2.39.png)
 
 5. Configure Network Settings  
   + **VPC - required**: select **vpc-0bed0339b78a7b96e (security-workshop-vpc)**  
@@ -42,9 +42,9 @@ pre: " <b> 2.1.4 </b> "
   + **Security Group**: select **Public subnet - SG**  
   + Click **Launch instance**
 
-![EC2](/images/2.prerequisite/11.png)
+![EC2](/000058-SessionManager/images/2.prerequisite/11.png)
 
 6. Finalize setup  
   + Rename the two instances to **MalC2** and **Compromised_EC**
 
-![EC2](/images/2.prerequisite/image2.2.41.png)
+![EC2](/000058-SessionManager/images/2.prerequisite/image2.2.41.png)

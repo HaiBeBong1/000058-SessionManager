@@ -18,18 +18,18 @@ pre: "<b>10.</b>"
 - Kiểm tra danh sách Instance ID, cột **Termination protection** phải là *Disabled*  
 - Không chọn **Skip OS shutdown** (trừ khi cần dừng khẩn cấp)  
 - Click **Terminate** để xóa vĩnh viễn
-![CleanUpResources](/images/10-CleanUpResources/2.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/2.png)
 
 3. Xóa Security Groups không còn dùng
 - Mục **Security Groups** (menu trái)  
 - Tick nhóm bảo mật cần xóa  
 - **Actions** → **Delete security groups**
-![CleanUpResources](/images/10-CleanUpResources/3.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/3.png)
 
 4. Xác nhận xóa Security Groups
 - Nhập **delete** vào ô xác nhận  
 - Click **Delete** để hoàn tất
-![CleanUpResources](/images/10-CleanUpResources/4.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/4.png)
 
 
 
@@ -37,21 +37,21 @@ pre: "<b>10.</b>"
 - Vào **Key Pairs**  
 - Tick chọn key pair cần xóa  
 - **Actions** → **Delete**
-![CleanUpResources](/images/10-CleanUpResources/5.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/5.png)
 
 
 6. Xác nhận xóa Key Pair
 - Nhập **delete** vào ô xác nhận  
 - Click **Delete**
 
-![CleanUpResources](/images/10-CleanUpResources/6.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/6.png)
 
 
 7. Xóa GuardDuty Findings
 - Vào **GuardDuty** → **Findings**  
 - Tick chọn tất cả findings  
 - **Actions** → **Archive**
-![CleanUpResources](/images/10-CleanUpResources/7.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/7.png)
 
 
 
@@ -60,7 +60,7 @@ pre: "<b>10.</b>"
 - Chọn danh sách cần xóa  
 - **Actions** → **Delete**
 
-![CleanUpResources](/images/10-CleanUpResources/8.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/8.png)
 
 
 9. Xóa AWS Lambda function
@@ -68,26 +68,26 @@ pre: "<b>10.</b>"
 - Tick chọn function cần xóa  
 - **Actions** → **Delete**
 
-![CleanUpResources](/images/10-CleanUpResources/9.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/9.png)
 
 10. Xác nhận xóa Lambda
 - Nhập **confirm** vào ô xác nhận  
 - Click **Delete**
 
-![CleanUpResources](/images/10-CleanUpResources/10.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/10.png)
 
 
 11. Xóa S3 Bucket
 - Vào **Amazon S3**  
 - Chọn bucket cần xóa  
 - Click **Delete**
-![CleanUpResources](/images/10-CleanUpResources/11.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/11.png)
 
 12. Xác nhận xóa Bucket
 - Nhập tên bucket vào ô xác nhận  
 - Click **Delete bucket**
 
-![CleanUpResources](/images/10-CleanUpResources/12.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/12.png)
 
 
 13. Xóa SNS Topic
@@ -95,20 +95,20 @@ pre: "<b>10.</b>"
 - Chọn topic cần xóa  
 - Click **Delete**
 
-![CleanUpResources](/images/10-CleanUpResources/13.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/13.png)
 14. Xóa VPC
 - Vào **Your VPCs**  
 - Tick chọn VPC cần xóa  
 - **Actions** → **Delete VPC**
 
-![CleanUpResources](/images/10-CleanUpResources/14.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/14.png)
 
 15. Xác nhận xóa VPC
 - Kiểm tra danh sách tài nguyên sẽ bị xóa kèm theo (Internet Gateway, Route Table, Subnet…)  
 - Nhập **delete** vào ô xác nhận  
 - Click **Delete** để hoàn tất
 
-![CleanUpResources](/images/10-CleanUpResources/15.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/15.png)
 
 ---
 
@@ -117,13 +117,13 @@ pre: "<b>10.</b>"
 - Tick chọn subnet cần xóa  
 - **Actions** → **Delete subnet**
 
-![CleanUpResources](/images/10-CleanUpResources/16.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/16.png)
 
 17. Xác nhận xóa Subnet
 - Nhập **delete** vào ô xác nhận  
 - Click **Delete** để hoàn tất
 
-![CleanUpResources](/images/10-CleanUpResources/17.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/17.png)
 
 ---
 
@@ -132,7 +132,7 @@ pre: "<b>10.</b>"
 - Tick chọn các role không còn sử dụng  
 - Click **Delete**
 
-![CleanUpResources](/images/10-CleanUpResources/18.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/18.png)
 
 ---
 
@@ -141,6 +141,6 @@ pre: "<b>10.</b>"
 - Tick chọn table cần xóa  
 - Click **Delete**
 
-![CleanUpResources](/images/10-CleanUpResources/19.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/19.png)
 
 

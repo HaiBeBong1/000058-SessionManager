@@ -10,7 +10,7 @@ chapter : false
 Trong môi trường điện toán đám mây, việc phát hiện và phản ứng kịp thời với các mối đe dọa bảo mật là yếu tố then chốt để bảo vệ hệ thống.  
 Workshop này sẽ hướng dẫn bạn xây dựng một **giải pháp giám sát và cảnh báo bảo mật đa tầng** trên AWS, kết hợp nhiều dịch vụ để **tự động phát hiện, cô lập, và thông báo khi phát hiện sự cố**.
 
-![introduce](/images/AWS.png)
+![introduce](/000058-SessionManager/images/AWS.png)
 Giải pháp sẽ sử dụng:
 - **Amazon GuardDuty** để phát hiện hành vi bất thường và mối đe dọa tiềm ẩn.
 - **Amazon EventBridge** để xử lý và phân phối sự kiện bảo mật.

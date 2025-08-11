@@ -11,7 +11,7 @@ draft: false
 1. Open [AWS Lambda Console](https://console.aws.amazon.com/lambda/home) and select the **aird_lambda** function.  
    + In the **Function overview** section, click **Add trigger**.
 
-![EventBridge](/images/7.EventBridge/10.png)  
+![EventBridge](/000058-SessionManager/images/7.EventBridge/10.png)  
 
 2. Configure the Trigger using EventBridge.  
       + **Trigger type**: select **EventBridge (CloudWatch Events)**.  
@@ -20,10 +20,10 @@ draft: false
       + Verify that the **Rule description** and **Event pattern** are correct.  
       + Click **Add** to add the trigger.
 
-![EventBridge](/images/7.EventBridge/11.png)  
+![EventBridge](/000058-SessionManager/images/7.EventBridge/11.png)  
 
 3. Confirm the trigger was successfully added.  
       + The screen shows a green message: *“The trigger eventb_iadr was successfully added to function aird_lambda.”*  
       + In the **Function overview** diagram, you will see the **EventBridge (CloudWatch Events)** node connected to the **aird_lambda** function.
 
-![EventBridge](/images/7.EventBridge/12.png)
+![EventBridge](/000058-SessionManager/images/7.EventBridge/12.png)

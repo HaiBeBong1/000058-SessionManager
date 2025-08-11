@@ -11,7 +11,7 @@ draft: false
 1. Truy cập [giao diện quản trị dịch vụ Amazon SNS](https://console.aws.amazon.com/sns/v3/home).
    + Click **Create topic**.
    + Nhập Create topic **Automated_idr_SNS**
-![SNS](/images/8.SNS/1.png)
+![SNS](/000058-SessionManager/images/8.SNS/1.png)
 
 2. Định cấu hình topic.
    + Chọn loại **Standard**.
@@ -19,24 +19,24 @@ draft: false
    + Tại mục **Display name** nhập `SNS Topic`.
    + Click **Create topic**.
 
-![SNS](/images/8.SNS/2.png)
-![SNS](/images/8.SNS/3.png)
+![SNS](/000058-SessionManager/images/8.SNS/2.png)
+![SNS](/000058-SessionManager/images/8.SNS/3.png)
 #### Tạo Subscription cho Topic **Automated_idr_SNS**
 3. Tại trang chi tiết của topic, chọn **Create subscription**.
-![SNS](/images/8.SNS/4.png)
+![SNS](/000058-SessionManager/images/8.SNS/4.png)
 
 
 4. Định cấu hình subscription.
    + **Protocol**: chọn `Email`.
    + **Endpoint**: nhập `Tên Mail của mình `.
    + Click **Create subscription**.
-![SNS](/images/8.SNS/5.png)
+![SNS](/000058-SessionManager/images/8.SNS/5.png)
 
 5. Sau khi tạo subscription, trạng thái sẽ là **Pending confirmation**.
 
-![SNS](/images/8.SNS/6.png)
+![SNS](/000058-SessionManager/images/8.SNS/6.png)
 
 6. Mở email từ AWS Notification và click **Confirm subscription**.
-![SNS](/images/8.SNS/7.png)
+![SNS](/000058-SessionManager/images/8.SNS/7.png)
 7. Sau khi xác nhận thành công, hệ thống hiển thị thông báo **Subscription confirmed!**.
-![SNS](/images/8.SNS/8.png)
+![SNS](/000058-SessionManager/images/8.SNS/8.png)

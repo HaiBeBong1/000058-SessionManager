@@ -12,7 +12,7 @@ pre : " <b> 5. </b> "
     - Vào [DynamoDB console](https://console.aws.amazon.com/dynamodb/home)  
     - Click **Create table**
 
-![DynamoDB](/images/5.DynamoDB/1.png)
+![DynamoDB](/000058-SessionManager/images/5.DynamoDB/1.png)
 
 2. Nhập thông tin bảng
     - **Table name**: `CompromisedInstances`  
@@ -20,17 +20,17 @@ pre : " <b> 5. </b> "
     - **Sort key**: `Timestamp` (String)  
     - Chọn **Default settings**
 
-![DynamoDB](/images/5.DynamoDB/2.png)
+![DynamoDB](/000058-SessionManager/images/5.DynamoDB/2.png)
 
 3. Hoàn tất tạo bảng
     - Kéo xuống cuối trang, click **Create table**
 
-![DynamoDB](/images/5.DynamoDB/3.png)
+![DynamoDB](/000058-SessionManager/images/5.DynamoDB/3.png)
 
 4. Xác nhận bảng đã tạo thành công
     - Kiểm tra trạng thái bảng là **Active**  
     - Bảng hiển thị đúng `Partition key` và `Sort key`
 
-![DynamoDB](/images/5.DynamoDB/4.png)
+![DynamoDB](/000058-SessionManager/images/5.DynamoDB/4.png)
 
 
