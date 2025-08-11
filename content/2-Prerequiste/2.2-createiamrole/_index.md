@@ -14,16 +14,16 @@ This IAM Role will be assigned the **AmazonSSMManagedInstanceCore** policy, whic
 1. Go to the [IAM Management Console](https://console.aws.amazon.com/iamv2/)  
 2. In the left navigation pane, click **Roles**.  
 
-![role](/images/2.prerequisite/1.png)
+![role](/000058-SessionManager/images/2.prerequisite/1.png)
 
 3. Click **Create role**.  
 
-![role1](/images/2.prerequisite/2.png)
+![role1](/000058-SessionManager/images/2.prerequisite/2.png)
 
 4. Select **AWS service** and then select **Lambda**.  
   + Click **Next**.  
 
-![role1](/images/2.prerequisite/image2.2.3.png)
+![role1](/000058-SessionManager/images/2.prerequisite/image2.2.3.png)
 
 5. Attach permissions for Lambda.  
   + In the search box, find and select the following policies:
@@ -41,12 +41,12 @@ This IAM Role will be assigned the **AmazonSSMManagedInstanceCore** policy, whic
   + Click **Next**.  
   + Then click **Next** again.  
 
-![createpolicy](/images/2.prerequisite/4.png)  
-![createpolicy](/images/2.prerequisite/5.png)  
-![createpolicy](/images/2.prerequisite/7.png)  
-![createpolicy](/images/2.prerequisite/8.png)  
-![createpolicy](/images/2.prerequisite/6.png)  
-![createpolicy](/images/2.prerequisite/image2.2.6.png)
+![createpolicy](/000058-SessionManager/images/2.prerequisite/4.png)  
+![createpolicy](/000058-SessionManager/images/2.prerequisite/5.png)  
+![createpolicy](/000058-SessionManager/images/2.prerequisite/7.png)  
+![createpolicy](/000058-SessionManager/images/2.prerequisite/8.png)  
+![createpolicy](/000058-SessionManager/images/2.prerequisite/6.png)  
+![createpolicy](/000058-SessionManager/images/2.prerequisite/image2.2.6.png)
 
 6. Set a name for the role:  
   - **Role name:** `aird_IAM`  
@@ -54,16 +54,16 @@ This IAM Role will be assigned the **AmazonSSMManagedInstanceCore** policy, whic
 
 Then click **Next**.
 
-![create role step 3](/images/2.prerequisite/image2.2.7.png)
+![create role step 3](/000058-SessionManager/images/2.prerequisite/image2.2.7.png)
 
 7. **Review and create the role**  
   - Double-check the attached policies.  
   - Click **Create role** to complete.  
 
-![create role final confirm](/images/2.prerequisite/image2.2.8.png)
+![create role final confirm](/000058-SessionManager/images/2.prerequisite/image2.2.8.png)
 
 8. Role successfully created:  
   - The role will appear in the IAM Roles list.  
   - Trusted entity: `lambda.amazonaws.com`  
 
-![role created success](/images/2.prerequisite/image2.2.9.png)
+![role created success](/000058-SessionManager/images/2.prerequisite/image2.2.9.png)
