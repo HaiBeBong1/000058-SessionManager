@@ -1,0 +1,15 @@
+/* Ẩn đường kẻ dưới tiêu đề H1 ở trang chapter trong hugo-theme-learn */
+.content h1,
+.content .title h1,
+.chapter h1 {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Nếu theme dùng pseudo-element để vẽ đường kẻ */
+.content h1::after,
+.content .title h1::after,
+.chapter h1::after {
+  content: none !important;
+  display: none !important;
+}

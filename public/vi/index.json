@@ -1,0 +1,176 @@
+[
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.1-createec2/",
+	"title": "Chuẩn bị VPC và EC2",
+	"tags": [],
+	"description": "",
+	"content": "Trong bước chuẩn bị chúng ta sẽ tiến hành tạo VPC và Subnet cho EC2 hoạt động và tạo 2 SG để thuận tiện cho việc cách ly\nĐể tìm hiểu cách tạo các EC2 instance và VPC với public/private subnet các bạn có thể tham khảo bài lab :\nGiới thiệu về Amazon EC2 Làm việc với Amazon VPC Nội dung Tạo VPC Tạo Public subnet Tạo SecurityGroup cho Public và Isolated Tạo EC2 "
+},
+{
+	"uri": "//localhost:1313/vi/1-introduce/",
+	"title": "Giới thiệu",
+	"tags": [],
+	"description": "",
+	"content": "Mục tiêu Workshop Trong workshop này, chúng ra sẽ học cách xây dựng một hệ thống phát hiện và phản ứng bảo mật tự động trên nền tảng đám mây AWS. Hệ thống có thể phát hiện các hành vi đáng ngờ như port scanning, đăng nhập trái phép vào EC2 hoặc truy cập bất thường đến tài nguyên. Khi phát hiện, hệ thống sẽ gửi cảnh báo gần như ngay lập tức, và tự động phản ứng để chặn IP tấn công bằng cách dùng GuardDuty → EventBridge → Lambda.\nToàn bộ pipeline sử dụng các dịch vụ serverless như:\nAmazon GuardDuty: Phát hiện mối đe dọa Amazon EventBridge: Lắng nghe và kích hoạt sự kiện AWS Lambda: Xử lý logic phản ứng Amazon SNS / DynamoDB: Gửi cảnh báo đa tầng Kiến trúc hệ thống GuardDutyPhát hiện mối đe dọa EventBridgeBắt sự kiện đe dọa LambdaPhân tích \u0026amp; phản ứng SNS email DynamoDB\nLuồng hoạt động GuardDuty liên tục giám sát các tài nguyên AWS và tạo cảnh báo (Findings) khi phát hiện hành vi bất thường. EventBridge bắt sự kiện GuardDuty Finding và kích hoạt hàm Lambda tương ứng. Lambda thực hiện các hành động như: Phân tích nội dung cảnh báo Trích xuất địa chỉ IP tấn công Gọi API để chặn IP bằng cách chỉnh sửa NACL hoặc Security Group Lưu log vào DynamoDB Gửi thông báo qua SNS (email) Nội dung workshop Kích hoạt GuardDuty và kiểm tra cảnh báo mẫu Tạo EventBridge Rule để bắt cảnh báo từ GuardDuty Viết hàm Lambda để xử lý: phân tích cảnh báo, chặn IP Gửi cảnh báo đến SNS, DynamoDB Kiểm thử hệ thống bằng hành vi tấn công giả lập (nmap) Tổng kết \u0026amp; mở rộng: tự động mở lại IP, đặt TTL, phân quyền IAM chặt chẽ hơn "
+},
+{
+	"uri": "//localhost:1313/vi/3-creates3/3.1-creates3bucket/",
+	"title": "Tạo S3 bucket",
+	"tags": [],
+	"description": "",
+	"content": " Đầu tiên, chúng ta sẽ truy cập vào giao diện quản trị của dịch vụ S3. Click chọn Create bucket. 2. Trong giao diện Create bucket:\nClick Bucket type chọn: General purpose Bucket nam nhập :threatlist3 . Object Ownership, chọn ACLs disabled (recommended). Đối với Block Public Access settings for this bucket, giữ nguyên mặc định. Sau đó kiểm tra lại và chọn Create bucket. việc tạo S3 bucket để lưu trữ hoàn thành. "
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.1-createec2/2.1.1-createvpc/",
+	"title": "Tạo VPC ",
+	"tags": [],
+	"description": "",
+	"content": "Tạo VPC Lab VPC Truy cập giao diện quản trị dịch vụ VPC Click Your VPC. Click Create VPC. Định cấu hình cài đặt VPC. Trong Tài nguyên để tạo, chọn VPC only. Tại mục Name tag điền security-workshop-vpc. Tại mục IPv4 CIDR block điền : 10.10.0.0/16. Click Create VPC. "
+},
+{
+	"uri": "//localhost:1313/vi/",
+	"title": "Xây dựng hệ thống tự động gửi cảnh báo bảo mật đa tầng trên AWS ",
+	"tags": [],
+	"description": "",
+	"content": "Xây dựng hệ thống tự động gửi cảnh báo bảo mật đa tầng trên AWS Trong môi trường điện toán đám mây, việc phát hiện và phản ứng kịp thời với các mối đe dọa bảo mật là yếu tố then chốt để bảo vệ hệ thống.\nWorkshop này sẽ hướng dẫn bạn xây dựng một giải pháp giám sát và cảnh báo bảo mật đa tầng trên AWS, kết hợp nhiều dịch vụ để tự động phát hiện, cô lập, và thông báo khi phát hiện sự cố.\nGiải pháp sẽ sử dụng:\nAmazon GuardDuty để phát hiện hành vi bất thường và mối đe dọa tiềm ẩn. Amazon EventBridge để xử lý và phân phối sự kiện bảo mật. AWS Lambda để tự động hóa các hành động phản ứng (như cô lập và dừng EC2 bị xâm nhập). Amazon SNS để gửi cảnh báo đến nhóm vận hành. Amazon S3 và DynamoDB để lưu trữ thông tin sự cố và log liên quan. Nội dung Giới thiệu Các bước chuẩn bị Tạo S3 Bật AmazonGuardDuty Tạo Amazon lambda Amazon EventBridge Tạo SNS Kết quả đạt được Dọn dẹp tài nguyên "
+},
+{
+	"uri": "//localhost:1313/vi/7-amazoneventbridge/7.1-eventbridgeconfiguration/",
+	"title": "Tạo EventBridge ",
+	"tags": [],
+	"description": "",
+	"content": "Tạo EventBridge Rule eventb_iadr để nhận sự kiện từ GuardDuty và gửi đến Lambda Truy cập Amazon EventBridge Console. Click Create rule. Định nghĩa thông tin Rule. Name: eventb_iadr Description: Eventbridge from GuardDuty to Lambda Event bus: chọn default Rule type: chọn Rule with an event pattern Click Next. Xây dựng Event Pattern. Event source: chọn Other Creation method: chọn Custom pattern (JSON editor) Nhập nội dung JSON sau: { \u0026#34;source\u0026#34;: [\u0026#34;aws.guardduty\u0026#34;], \u0026#34;detail-type\u0026#34;: [\u0026#34;GuardDuty Finding\u0026#34;], \u0026#34;detail\u0026#34;: { \u0026#34;severity\u0026#34;: [4, 5, 6, 7, 8], \u0026#34;resource\u0026#34;: { \u0026#34;resourceType\u0026#34;: [\u0026#34;Instance\u0026#34;] } } } Click Next. Chọn target là Lambda function.\nTarget type: AWS service Select a target: Lambda function Target location: Target in this account Function: aird_lambda Chọn Create a new role for this specific resource Click Next. (Tùy chọn) Thêm tags nếu cần, sau đó click Next. Kiểm tra cấu hình, sau đó click Create rule. Xác nhận Rule đã được tạo thành công. Xác nhận Rule đã được tạo thành công.\nMàn hình hiển thị thông báo màu xanh: Rule eventb_iadr was created successfully. "
+},
+{
+	"uri": "//localhost:1313/vi/8-simplenotificationservice/8.1-createsns/",
+	"title": "Tạo SNS",
+	"tags": [],
+	"description": "",
+	"content": "Tạo Amazon SNS Topic Automated_idr_SNS và đăng ký email nhận thông báo Truy cập giao diện quản trị dịch vụ Amazon SNS.\nClick Create topic. Nhập Create topic Automated_idr_SNS Định cấu hình topic.\nChọn loại Standard. Tại mục Name nhập Automated_idr_SNS. Tại mục Display name nhập SNS Topic. Click Create topic. Tạo Subscription cho Topic Automated_idr_SNS Tại trang chi tiết của topic, chọn Create subscription. Định cấu hình subscription.\nProtocol: chọn Email. Endpoint: nhập Tên Mail của mình . Click Create subscription. Sau khi tạo subscription, trạng thái sẽ là Pending confirmation.\nMở email từ AWS Notification và click Confirm subscription. Sau khi xác nhận thành công, hệ thống hiển thị thông báo Subscription confirmed!. "
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/",
+	"title": "Các bước chuẩn bị",
+	"tags": [],
+	"description": "",
+	"content": "2. Các bước chuẩn bị ban đầu Trước khi bắt đầu xây dựng hệ thống phát hiện và phản ứng bảo mật tự động, bạn cần chuẩn bị đầy đủ các điều kiện tiên quyết về tài khoản AWS, cũng như thực hiện một số bước thiết lập về môi trường, tài nguyên và quyền truy cập để đảm bảo quá trình triển khai diễn ra thuận lợi và chính xác.\n2.1. Yêu cầu tài khoản và quyền truy cập Để triển khai hệ thống này, bạn cần một tài khoản AWS đáp ứng các điều kiện sau:\nTài khoản AWS đã kích hoạt billing (có thể là tài khoản cá nhân, tài khoản trong chương trình AWS Educate hoặc Free Tier). Có quyền truy cập AdministratorAccess hoặc tối thiểu các quyền cần thiết cho: EC2, S3, Lambda, SNS, DynamoDB, EventBridge, IAM, GuardDuty. Khuyến khích: Bật Multi-Factor Authentication (MFA) cho tài khoản root hoặc IAM user để tăng cường bảo mật. 2.2. Phạm vi Free Tier của AWS Workshop này được thiết kế để chạy toàn bộ trong giới hạn AWS Free Tier, không phát sinh chi phí nếu bạn chưa vượt hạn mức sử dụng miễn phí.\nBảng: Mức sử dụng tài nguyên so với giới hạn Free Tier\nDịch vụ (Service) Giới hạn Free Tier Mức sử dụng trong Workshop Amazon S3 5GB lưu trữ, 20,000 lượt GET/tháng \u0026lt; 1GB, \u0026lt; 100 lượt truy cập AWS Lambda 1 triệu request/tháng, 400,000 GB-seconds \u0026lt; 1,000 request Amazon SNS 1,000 thông báo email/tháng \u0026lt; 50 thông báo Amazon DynamoDB 25GB lưu trữ, 25 RCU/WCU \u0026lt; 1GB, chỉ vài thao tác ghi Amazon GuardDuty Free trong 30 ngày (dùng thử cho lần đầu bật) Trong thời gian dùng thử Amazon EventBridge Miễn phí 100,000 sự kiện/tháng \u0026lt; 1,000 sự kiện 2.3. Chuẩn bị môi trường thực hành Trước khi bắt đầu các bước cấu hình dịch vụ, bạn cần chuẩn bị một môi trường thực hành tối thiểu như sau:\nKhu vực (Region):\nKhuyến nghị sử dụng khu vực us-east-1 hoặc khu vực gần bạn nhất để giảm độ trễ và tăng tính tương thích với các dịch vụ.\nĐặt tên tài nguyên:\nĐể dễ quản lý, nên tuân theo quy tắc đặt tên thống nhất. Ví dụ:\nEC2 Instance: CompromisedEC2, MaliciousEC2 S3 Bucket: threat-list-[your-unique-id] IAM Role: LambdaSecurityRole Lambda Function: IsolateInstance EventBridge Rule: GuardDutyToLambdaRule SNS Topic: GuardDutyNotifications Tài khoản email hợp lệ:\nĐể nhận thông báo từ Amazon SNS, bạn cần có một địa chỉ email có thể nhận thư và xác nhận đăng ký.\nKiểm tra quyền truy cập IAM:\nĐảm bảo user/role bạn đang dùng có quyền tạo và chỉnh sửa các dịch vụ nêu trên. Nếu sử dụng IAM user, kiểm tra lại các policy đính kèm.\n📌 Lưu ý: Hạn chế sử dụng tài khoản root để triển khai — thay vào đó nên sử dụng IAM user có quyền phù hợp.\n"
+},
+{
+	"uri": "//localhost:1313/vi/3-creates3/3.2-uploaddatatos3/",
+	"title": "Tải dữ liệu ",
+	"tags": [],
+	"description": "",
+	"content": " Đầu tiên, chúng ta sẽ Click chọn threatlist3. 2. Sau đó, chúng ta sẽ Tải dữ liệu lên S3.\nClick Bucket type chọn: Upload Tạo 1 Noted với tên là ThreatList ta lấy địa chỉ Public IPv4 address EC2 độc hại đưa vào ThreatList Click vào Add files Chọn file ThreatList vừa tạo Click vào Upload Việc Upload succeeded đã hoàn tất Coppy Object URL "
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.2-createiamrole/",
+	"title": "Tạo IAM Role",
+	"tags": [],
+	"description": "",
+	"content": "Tạo IAM Role Trong bước này chúng ta sẽ tiến hành tạo IAM Role. Trong IAM Role này sẽ được gán policy AmazonSSMManagedInstanceCore, đây là policy cho phép máy chủ EC2 có thể giao tiếp với Session Manager.\nTruy cập vào giao diện quản trị dịch vụ IAM Ở thanh điều hướng bên trái, click Roles. Click Create role. Click AWS service và click Lambda. Click Next. Gán quyền cho Lambda. Trong ô Search và chọn các policy sau: AmazonEC2FullAccess AWSLambda_FullAccess AWSLambdaBasicExecutionRole CloudWatchEventsFullAccess AmazonDynamoDBFullAccess Click chọn policy. AmazonEC2FullAccess. AWSLambda_FullAccess. AWSLambdaBasicExecutionRole CloudWatchEventsFullAccess AmazonDynamoDBFullAccess. Click Next. Sau đó nhấn Next. Đặt tên cho role Role name: aird_IAM Description: Allows Lambda functions to call AWS services on your behalf. Sau đó nhấn Next.\n7. ** Xác nhận và tạo Role\nKiểm tra lại các policy đã gán (2 policy ở trên). Nhấn Create role để hoàn tất. 8. Role đã được tạo thành công\nRole sẽ xuất hiện trong danh sách IAM Roles. Trusted entity: lambda.amazonaws.com "
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.1-createec2/2.1.2-createpublicsubnet/",
+	"title": "Tạo Public subnet",
+	"tags": [],
+	"description": "",
+	"content": "Tạo Public subnet Click Subnets. Click Create subnet. Tại trang Create subnet. Tại mục VPC ID click chọn security-workshop-vpc. Tại mục Subnet name điền Public-Subnet. Tại mục Availability Zone chọn Availability zone đầu tiên. Tại mục IPv4 CIRD block điền 10.10.1.0/24. Click Create subnet. Kéo xuống cuối trang , click Create subnet.\nClick chọn Lab Public Subnet.\nClick Actions. Click Edit subnet settings. Click chọn Enable auto-assign public IPv4 address. Click Save. Click Internet Gateways. Click Create internet gateway. Tại trang Create internet gateway. Tại mục Name tag điền igw-workshop. Click Create internet gateway. Sau khi tạo thành công, click Actions. Click Attach to VPC. Tại trang Attach to VPC. Tại mục Available VPCs chọn security-workshop-vpc. Click Attach internet gateway. Kiểm tra quá trình attach thành công như hình dưới. Tiếp theo chúng ta sẽ tạo một custom route table để gán vào Lab Public Subnet. Click Route Tables. Click Create route table. Tại trang Create route table. Tại mục Name, điền rtb-public-subnet. Tại mục VPC, chọn security-workshop-vpc. Click Create route table. Sau khi tạo route table thành công. Click Edit routes. Tại trang Edit routes. Click Add route. Tại mục Destination điền 0.0.0.0/0 Tại mục Target chọn Internet Gateway sau đó chọn Lab IGW. Click Save changes. Click tab Subnet associations. Click Edit subnet associations để tiến hành associate custom routable chúng ta vừa tạo vào Public-Subnet. Tại trang Edit subnet associations. Click chọn Lab Public Subnet. Click Save associations. Kiểm tra thông tin route table đã được associate với Public-Subnet và thông tin route đi internet đã được trỏ đến Internet Gateway như hình dưới. "
+},
+{
+	"uri": "//localhost:1313/vi/7-amazoneventbridge/7.2-integratewithlambda/",
+	"title": "Tích hợp với Lambda",
+	"tags": [],
+	"description": "",
+	"content": "Thêm Trigger EventBridge cho Lambda aird_lambda Mở AWS Lambda Console và chọn hàm aird_lambda. Ở phần Function overview, bấm Add trigger. 2. Cấu hình Trigger sử dụng EventBridge. + Trigger type: chọn EventBridge (CloudWatch Events). + Ở mục Rule, chọn Existing rules. + Trong Existing rules, chọn rule đã tạo: eventb_iadr (ARN hiện ra trong ô chọn). + Kiểm tra phần Rule description và Event pattern hiển thị đúng. + Bấm Add để thêm trigger.\nXác nhận trigger được thêm thành công. Màn hình hiển thị thông báo màu xanh: “The trigger eventb_iadr was successfully added to function aird_lambda.” Trong sơ đồ Function overview, thấy nút EventBridge (CloudWatch Events) gắn với hàm aird_lambda. "
+},
+{
+	"uri": "//localhost:1313/vi/8-simplenotificationservice/8.2-integratewithlambda/",
+	"title": "Tích hợp với Lambda",
+	"tags": [],
+	"description": "",
+	"content": "Cấu hình Lambda Destination cho hàm aird_lambda Mở trang chi tiết hàm Lambda aird_lambda trong AWS Lambda Console. Kiểm tra rằng hàm đã được gắn trigger EventBridge (CloudWatch Events). Nhấn Add destination để cấu hình đích nhận sự kiện. Cấu hình Destination: Source: Chọn Asynchronous invocation. Condition: Chọn On success (gửi thông báo khi chạy thành công). Destination type: Chọn SNS topic. Destination: Nhập ARN của SNS Topic arn:aws:sns:ap-southeast-1:070653981874:Automated_idr_SNS. Nhấn Save để lưu cấu hình. Xác nhận cấu hình thành công: Sau khi lưu, tại sơ đồ của hàm Lambda sẽ hiển thị đích SNS bên cạnh trigger EventBridge. Điều này đảm bảo mỗi khi Lambda xử lý thành công, một thông báo sẽ được gửi tới SNS Topic. "
+},
+{
+	"uri": "//localhost:1313/vi/3-creates3/",
+	"title": "Tạo S3",
+	"tags": [],
+	"description": "",
+	"content": "Trong bước này, chúng ta sẽ tạo một S3 Bucket dùng để lưu trữ các IP của EC2 độc hại (Threat list)\nNội dung 3.1. Tạo S3 Bucket 3.2. Tải dữ liệu\n"
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.1-createec2/2.1.3-createsecuritygroup/",
+	"title": "Tạo Security Group cho Public và Isolated",
+	"tags": [],
+	"description": "",
+	"content": "Tạo security group Truy cập giao diện quản trị dịch vụ VPC Click Security Group. Click Create security group. Cấu hình thông tin cơ bản Security Group name: Nhập Public subnet - SG Description: Nhập Allow SSH and Ping for servers in public subnet VPC: Chọn security-workshop-vpc Thiết lập Inbound Rules Click Add rule Rule 1: Type: SSH Source: My IP (địa chỉ IPv4 public của bạn) Rule 2: Type: All ICMP - IPv4 Source: Anywhere (cho phép ping từ mọi nơi) Xác nhận Outbound Rules và tạo Security Group Click Add rule Type: All traffic Destination: Anywhere (0.0.0.0/0) Click Create security group. Kiểm tra Security Group đã tạo Tạo isolated security group Truy cập giao diện quản trị dịch vụ VPC Click Security Group. Click Create security group. Cấu hình thông tin cơ bản cho Security Group cô lập Security Group name: Nhập sg-isolated Description: Nhập Security Group to isolate compromised EC2 VPC: Chọn lại VPC đã dùng cho bài lab (ví dụ: security-workshop-vpc) 🎯 Đây là security group sẽ được gán cho EC2 bị phát hiện có hành vi nguy hiểm — giúp cách ly khỏi toàn bộ mạng.\nCấu hình Inbound Rules Click Add rule Rule 1: Type: SSH Source: My IP (địa chỉ IPv4 public của bạn) Outbound Rules Nếu có rule mặc định (All traffic → 0.0.0.0/0), hãy để mặc định\nSau khi tạo xong, bạn sẽ thấy SG sg-isolated xuất hiện trong danh sách.\nBạn có thể dùng SG này cho Lambda hoặc EventBridge để tự động chuyển EC2 bị compromise sang trạng thái cách ly.\nNhấn Create security group để hoàn tất "
+},
+{
+	"uri": "//localhost:1313/vi/4-amazonguardduty/",
+	"title": "Amazon GuardDuty",
+	"tags": [],
+	"description": "",
+	"content": "Bật Amazon GuardDuty và cấu hình Threat IP List Bật GuardDuty\nTruy cập AWS GuardDuty Console. Chọn Amazon GuardDuty - all features và nhấn Get started để kích hoạt dịch vụ.\nTruy cập mục Lists\nSau khi kích hoạt thành công, ở menu bên trái, chọn Settings → Lists. Thêm Threat IP List Tại phần Threat IP list, nhấn Add a threat ip list. Nhập thông tin Threat IP List List name: ThreatList Location: https://threatlists3.s3.ap-southeast-1.amazonaws.com/ThreatList.txt List format: Plaintext Chọn Add list để lưu. Kích hoạt Threat IP List Sau khi thêm thành công, chọn danh sách vừa tạo → Actions → Activate để kích hoạt. "
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.1-createec2/2.1.4-createec2/",
+	"title": "Tạo EC2 Instance",
+	"tags": [],
+	"description": "",
+	"content": " Truy cập giao diện quản trị dịch vụ EC2 Click Instances. Click Launch instances. Tại Instance Đặt tên and tags, nhập **EC2 ** Đăt Number of instances là: 2 Chọn Quick Start Chọn Amazon Linux 2 Chọn phiên bản AMI phù hợp Cấu hình Instance và Key Pair Click chọn Instance type t2.micro. Click Create new key pair. Tạo Key Pair mới Key pair name: Nhập kpair Key pair type: Chọn RSA Private key format: Chọn .pem Click Create key pair 5.5. Thiết lập Network Settings\nVPC - required: Chọn vpc-0bed0339b78a7b96e (security-workshop-vpc) Subnet: Chọn Public-Subnet Auto-assign public IP: Chọn Enable Security Group: Chọn Public subnet - SG Click Launch instance Hoàn tất khởi tạo Đổi tên MalC2 và Compromised_EC "
+},
+{
+	"uri": "//localhost:1313/vi/5-dynamodb/",
+	"title": "Amazon DynamoDB",
+	"tags": [],
+	"description": "",
+	"content": " Tạo bảng DynamoDB để lưu trữ thông tin các EC2 instance bị xâm nhập.\nTruy cập DynamoDB Vào DynamoDB console Click Create table Nhập thông tin bảng Table name: CompromisedInstances Partition key: InstanceId (String) Sort key: Timestamp (String) Chọn Default settings Hoàn tất tạo bảng Kéo xuống cuối trang, click Create table Xác nhận bảng đã tạo thành công Kiểm tra trạng thái bảng là Active Bảng hiển thị đúng Partition key và Sort key "
+},
+{
+	"uri": "//localhost:1313/vi/6-lambda/",
+	"title": "Amazon Lambda",
+	"tags": [],
+	"description": "",
+	"content": "Tạo và triển khai hàm Lambda aird_lambda Tạo Lambda Function Truy cập AWS Lambda Console. Nhấn Create a function. Cấu hình cơ bản cho Lambda Function name: aird_lambda Runtime: Chọn Python 3.13 Giữ nguyên các thiết lập mặc định, sau đó nhấn Create function. Xác nhận hàm Lambda đã được tạo\nGiao diện hiển thị hàm aird_lambda với trạng thái sẵn sàng cấu hình và thêm trigger.\nViết mã nguồn cho Lambda\nMở tab Code → Thêm nội dung file lambda_function.py như sau: import boto3 import json from botocore.exceptions import ClientError # Initialize the EC2 client ec2 = boto3.client(\u0026#39;ec2\u0026#39;) def lambda_handler(event, context): try: # Log the incoming event to see its structure print(f\u0026#34;Received event: {json.dumps(event)}\u0026#34;) # Extract instance ID from the event details if \u0026#39;detail\u0026#39; in event and \u0026#39;resource\u0026#39; in event[\u0026#39;detail\u0026#39;] and \u0026#39;instanceDetails\u0026#39; in event[\u0026#39;detail\u0026#39;][\u0026#39;resource\u0026#39;]: instance_id = event[\u0026#39;detail\u0026#39;][\u0026#39;resource\u0026#39;][\u0026#39;instanceDetails\u0026#39;][\u0026#39;instanceId\u0026#39;] else: # Return an error if the event structure is unexpected return { \u0026#39;statusCode\u0026#39;: 400, \u0026#39;body\u0026#39;: json.dumps(\u0026#34;Error: Event structure is not as expected.\u0026#34;) } # Isolate the instance by modifying its security group response_sg = ec2.modify_instance_attribute( InstanceId=instance_id, Groups=[\u0026#39;sg-01234abcd5678efgh\u0026#39;] # Thay bằng IsolatedSecurityGroup ID ) print(f\u0026#34;Instance {instance_id} isolated: {response_sg}\u0026#34;) # Stop the compromised instance response_stop = ec2.stop_instances( InstanceIds=[instance_id] ) print(f\u0026#34;Instance {instance_id} stopped: {response_stop}\u0026#34;) return { \u0026#39;statusCode\u0026#39;: 200, \u0026#39;body\u0026#39;: json.dumps(f\u0026#34;Instance {instance_id} successfully isolated and stopped.\u0026#34;) } except ClientError as e: print(f\u0026#34;Error occurred: {e}\u0026#34;) return { \u0026#39;statusCode\u0026#39;: 500, \u0026#39;body\u0026#39;: json.dumps(f\u0026#34;Error: {str(e)}\u0026#34;) } Triển khai code\nNhấn Deploy để lưu và áp dụng code mới.\nChỉnh sửa cấu hình Lambda\nVào Configuration → Edit. Chọn Existing role là aird_IAM. Nhấn Save để lưu thay đổi.\nThêm các biến môi trường (Environment Variables) để Lambda function có thể truy cập thông tin bảng DynamoDB và Security Group.\nMở phần cấu hình Lambda Vào Lambda → Chọn function aird_lambda Chọn tab Configuration Chọn Environment variables Click Edit Thêm biến môi trường mới Click Add environment variable Nhập thông tin biến môi trường Key: TABLE_NAME → Value: CompromisedInstances Key: ISOLATED_SG_ID → Value: ID của Security Group cô lập (ví dụ: sg-00a6505c1ce061286) Có thể thêm biến khác nếu cần Click Save để lưu nhận biến môi trường đã được lưu Kiểm tra danh sách Environment variables hiển thị đầy đủ các key và value vừa tạo Kiểm tra Lambda Tạo test event mới, đặt tên test và nhập dữ liệu JSON mẫu. Nhấn Save để chạy thử.\nXem kết quả log Log hiển thị sự kiện nhận được và các bước xử lý. "
+},
+{
+	"uri": "//localhost:1313/vi/7-amazoneventbridge/",
+	"title": "Amazon EventBridge",
+	"tags": [],
+	"description": "",
+	"content": "Amazon EventBridge là dịch vụ bus sự kiện (event bus) được quản lý hoàn toàn bởi AWS, cho phép bạn kết nối các ứng dụng bằng cách định tuyến sự kiện từ các nguồn (như GuardDuty) đến các dịch vụ đích (như Lambda, SNS).\nEventBridge sẽ đóng vai trò bắt sự kiện cảnh báo bảo mật từ GuardDuty và kích hoạt Lambda để xử lý tự động.\nNội Dung Tạo rule EventBridge Cấu hình trigger cho Lambda "
+},
+{
+	"uri": "//localhost:1313/vi/8-simplenotificationservice/",
+	"title": "Amazon SNS",
+	"tags": [],
+	"description": "",
+	"content": "Amazon SNS là dịch vụ nhắn tin pub/sub (publish-subscribe) được quản lý hoàn toàn bởi AWS, cho phép bạn gửi thông điệp từ các ứng dụng đến nhiều người nhận hoặc hệ thống khác nhau một cách nhanh chóng, tin cậy và mở rộng linh hoạt. Trong phần này, chúng ta sẽ:\nTạo chủ đề SNS (Topic) để làm kênh phân phối thông điệp. Đăng ký người nhận (Subscriber) qua email hoặc các giao thức khác. Tích hợp SNS với Lambda để tự động gửi cảnh báo khi có sự kiện bảo mật từ GuardDuty thông qua EventBridge. Nội dung Tạo SNS Tích hợp SNS với Lambda "
+},
+{
+	"uri": "//localhost:1313/vi/9-achievedresult/",
+	"title": "Kết quả đạt được",
+	"tags": [],
+	"description": "",
+	"content": "Kết quả Liệt kê các EC2 instance Hai EC2 instance được tạo thuộc Security Group Public subnet - SG.\nTick vào Compromised_EC2 Chn instance Compromised_EC2, sau đó nhấn Connect.\nKết nối SSH Sử dụng lệnh SSH bên dưới để kết nối vào EC2: Click Yes ssh -i \u0026#34;kpair.pem\u0026#34; ec2-user@47.128.65.71 4. Kiểm tra người dùng \u0026amp; chuyển root\ndùng các lệnh sau: whomi # gõ sai -\u0026gt; lỗi \u0026#34;command not found\u0026#34; whoami # đúng: trả về \u0026#39;ec2-user\u0026#39; sudo su # chuyển sang user \u0026#39;root\u0026#39; whoami # xác nhận: \u0026#39;root\u0026#39; nano payload.sh # tạo script 5.Nội dung script\n#!/bin/bash for j in {1..10}; do sudo nmap -sT -Pn 13.229.210.16 done Lấy địa chỉ của MalC2 IPv4: 13.229.210.16 Lưu lại file payload.sh :\nNhấn Ctrl + O (Write Out) Nhấn Enter để xác nhận tên file (payload.sh) Nhấn Ctrl + X để thoát khỏi nano Chạy lệnh\nchmod +x payload.sh ./payload.sh Kết quả này lặp lại ổn định trong nhiều lần quét, chứng tỏ cấu hình mạng hiện tại chỉ cho phép truy cập SSH và chặn toàn bộ dịch vụ khác. 10. Trạng thái EC2 sau khi xử lý Sau khi xác định Compromised_EC2 có khả năng bị khai thác, instance này đã được gán sang Security Group “Sg-isolated” để chặn toàn bộ kết nối mạng.\nMalC2\nTrạng thái: Running (2/2 checks passed) Compromised_EC2\nTrạng thái: Stopping (đang dừng) Cô lập EC2 qua Security Group Sau khi xác định Compromised_EC2 có khả năng bị khai thác, instance này đã được gán sang Security Group “Sg-isolated” để chặn toàn bộ kết nối mạng. Biện pháp này giúp: Ngăn chặn rủi ro lan rộng sang các tài nguyên khác. Bảo toàn dữ liệu hiện trường để điều tra nguyên nhân và phương thức tấn công. Phát hiện từ AWS GuardDuty AWS GuardDuty đã ghi nhận một sự kiện Recon:EC2/Portscan với mức độ Medium đối với instance i-02cc787dd11d0703f (Compromised_EC2).\nChi tiết cảnh báo GuardDuty Thông tin chi tiết cảnh báo:\nFinding ID: 16cc49ab87e99a0d94f0d379281477d6 Type: Recon:EC2/Portscan Severity: MEDIUM Region: ap-southeast-1 Thời gian phát hiện: 08-10-2025 16:36:53 Địa chỉ mục tiêu: 13.229.210.16 Resource: i-02cc787dd11d0703f 14. AWS SNS đã gửi thông báo xác nhận:\nĐiều này cho thấy quy trình phản ứng sự cố đã thành công: EC2 bị cô lập khỏi mạng và dừng hoạt động, ngăn chặn mọi hoạt động tiếp theo từ nguồn này. AWS DynamoDB đã lưu lại Click vào Table Click vào Compromisedlnstances "
+},
+{
+	"uri": "//localhost:1313/vi/10-cleanupresources/",
+	"title": "Clean Up Resources",
+	"tags": [],
+	"description": "",
+	"content": " Sau khi hoàn tất workshop, bạn cần xóa tài nguyên để tránh phát sinh chi phí.\n1 Chọn và terminate EC2 instances Vào EC2 console → Instances Tick chọn tất cả instance cần xóa Instance state → Terminate (delete) instance 2Xác nhận xóa Instances Kiểm tra danh sách Instance ID, cột Termination protection phải là Disabled Không chọn Skip OS shutdown (trừ khi cần dừng khẩn cấp) Click Terminate để xóa vĩnh viễn 3 Xóa Security Groups không còn dùng Mục Security Groups (menu trái) Tick nhóm bảo mật cần xóa Actions → Delete security groups 4 Xác nhận xóa Security Groups Nhập delete vào ô xác nhận Click Delete để hoàn tất 5 Xóa Key Pair Vào Key Pairs Tick chọn key pair cần xóa Actions → Delete 6 Xác nhận xóa Key Pair Nhập delete vào ô xác nhận Click Delete 7 Xóa GuardDuty Findings Vào GuardDuty → Findings Tick chọn tất cả findings Actions → Archive 8 Xóa Threat IP List trong GuardDuty Vào Lists Chọn danh sách cần xóa Actions → Delete 9 Xóa AWS Lambda function Vào Lambda → Functions Tick chọn function cần xóa Actions → Delete 10 Xác nhận xóa Lambda Nhập confirm vào ô xác nhận Click Delete 11 Xóa S3 Bucket Vào Amazon S3 Chọn bucket cần xóa Click Delete 12 Xác nhận xóa Bucket Nhập tên bucket vào ô xác nhận Click Delete bucket 13 Xóa SNS Topic Vào Amazon SNS → Topics Chọn topic cần xóa Click Delete 14 Xóa VPC Vào Your VPCs Tick chọn VPC cần xóa Actions → Delete VPC 15 Xác nhận xóa VPC Kiểm tra danh sách tài nguyên sẽ bị xóa kèm theo (Internet Gateway, Route Table, Subnet…) Nhập delete vào ô xác nhận Click Delete để hoàn tất 16 Xóa Subnet Vào Subnets Tick chọn subnet cần xóa Actions → Delete subnet 17 Xác nhận xóa Subnet Nhập delete vào ô xác nhận Click Delete để hoàn tất 18 Xóa IAM Roles Vào IAM → Roles Tick chọn các role không còn sử dụng Click Delete 19 Xóa DynamoDB Table Vào DynamoDB → Tables Tick chọn table cần xóa Click Delete "
+},
+{
+	"uri": "//localhost:1313/vi/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/vi/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

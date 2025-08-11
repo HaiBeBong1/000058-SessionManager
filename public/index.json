@@ -1,0 +1,162 @@
+[
+{
+	"uri": "//localhost:1313/",
+	"title": "Building a Multi-Layered Automated Security Alert System on AWS",
+	"tags": [],
+	"description": "",
+	"content": "Building a Multi-Layered Automated Security Alert System on AWS In a cloud computing environment, timely detection and response to security threats is critical to protecting your systems.\nThis workshop will guide you through building a multi-layered security monitoring and alerting solution on AWS, integrating multiple services to automatically detect, isolate, and notify when an incident occurs.\nThis solution will use:\nAmazon GuardDuty to detect unusual behavior and potential threats. Amazon EventBridge to process and route security events. AWS Lambda to automate response actions (such as isolating and stopping compromised EC2 instances). Amazon SNS to send alerts to the operations team. Amazon S3 and DynamoDB to store incident information and related logs. Contents Introduction Prerequisites Create S3 Enable Amazon GuardDuty Create AWS Lambda Amazon EventBridge Create SNS Achieved Result Clean Up Resources "
+},
+{
+	"uri": "//localhost:1313/3-creates3/3.1-creates3bucket/",
+	"title": "Connect to Public Instance",
+	"tags": [],
+	"description": "",
+	"content": "\nGo to EC2 service management console. Click on Public Linux Instance. Click Actions. Click Security. Click Modify IAM role. At the Modify IAM role page. Click to select SSM-Role. Click Save. You will need to wait about 10 minutes before performing the next step. This time our EC2 instance will automatically register with the Session Manager.\nGo to the AWS Systems Manager service management console Drag the left menu slider down. Click Session Manager. Click Start Session. Then select Public Linux Instance and click Start session to access the instance. Terminal will appear on the browser. Testing with the command sudo tcpdump -nn port 22 and sudo tcpdump we will see no SSH traffic but only HTTPS traffic. Above, we have created a connection to the public instance without opening SSH port 22, for better security, avoiding any attack to the SSH port.\nOne disadvantage of the above method is that we have to open the Security Group outbound at port 443 to the internet. Since it\u0026rsquo;s a public instance, it probably won\u0026rsquo;t be a problem, but if you want extra security, you can block port 443 to the internet and still use the Session Manager. We will go through this in the private instance section below.\nYou can click terminate to end the currently connected session before proceeding to the next step.\n"
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.1-createec2/2.1.1-createvpc/",
+	"title": "Create VPC",
+	"tags": [],
+	"description": "",
+	"content": "Create VPC Lab VPC Go to VPC service management console Click Your VPC. Click Create VPC. At the Create VPC page. In the Name tag field, enter Lab VPC. In the IPv4 CIDR field, enter: 10.10.0.0/16. Click Create VPC. "
+},
+{
+	"uri": "//localhost:1313/1-introduce/",
+	"title": "Introduction",
+	"tags": [],
+	"description": "",
+	"content": "Workshop Objective In this workshop, we will learn how to build an automated security detection and response system on the AWS cloud platform.\nThe system can detect suspicious activities such as port scanning, unauthorized login to EC2 instances, or unusual access to resources. Upon detection, it will send near real-time alerts and automatically respond to block the attacking IP using GuardDuty → EventBridge → Lambda.\nThe entire pipeline uses serverless services, including:\nAmazon GuardDuty: Threat detection Amazon EventBridge: Event listening and triggering AWS Lambda: Response logic processing Amazon SNS / DynamoDB: Multi-layer alerting System Architecture GuardDuty: Detects threats EventBridge: Captures threat events Lambda: Analyzes \u0026amp; responds SNS: Sends email alerts DynamoDB: Stores incident logs Workflow GuardDuty continuously monitors AWS resources and generates alerts (Findings) when unusual behavior is detected. EventBridge captures the GuardDuty Finding event and triggers the corresponding Lambda function. Lambda performs actions such as: Analyzing the alert content Extracting the attacking IP address Calling APIs to block the IP by modifying NACL or Security Group Logging the incident to DynamoDB Sending notifications via SNS (email) Workshop Content Enable GuardDuty and check sample alerts Create an EventBridge Rule to capture alerts from GuardDuty Write a Lambda function to process alerts and block IPs Send alerts to SNS and DynamoDB Test the system with simulated attack behavior (nmap) Summary \u0026amp; enhancements: automatically unblock IPs, set TTL, enforce stricter IAM permissions "
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.1-createec2/",
+	"title": "Prepare VPC and EC2",
+	"tags": [],
+	"description": "",
+	"content": "In this preparation step, we will create a VPC and Subnet for the EC2 instance to operate, as well as set up two Security Groups to facilitate isolation when needed.\nFor more details on how to create EC2 instances and a VPC with public/private subnets, you can refer to the following labs:\nIntroduction to Amazon EC2 Working with Amazon VPC Contents Create VPC Create Public Subnet Create Security Groups for Public and Isolated Create EC2 Instance "
+},
+{
+	"uri": "//localhost:1313/10-cleanupresources/",
+	"title": "Session Management",
+	"tags": [],
+	"description": "",
+	"content": "Work with Amazon System Manager - Session Manager Overall In this lab, you\u0026rsquo;ll learn the basics and practice of Amazon System Manager - Session Manager . Perform creating public and private instance connections.\nContent Introduction Preparation Connect to EC2 instance Manage session logs Port Forwarding Clean up resources "
+},
+{
+	"uri": "//localhost:1313/9-achievedresult/",
+	"title": "Session Management",
+	"tags": [],
+	"description": "",
+	"content": "Work with Amazon System Manager - Session Manager Overall In this lab, you\u0026rsquo;ll learn the basics and practice of Amazon System Manager - Session Manager . Perform creating public and private instance connections.\nContent Introduction Preparation Connect to EC2 instance Manage session logs Port Forwarding Clean up resources "
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/",
+	"title": "Prerequisites",
+	"tags": [],
+	"description": "",
+	"content": "2. Initial Preparation Steps Before starting to build the automated security detection and response system, you need to have the necessary AWS account prerequisites in place, as well as perform certain environment, resource, and access configurations to ensure the deployment process runs smoothly and accurately.\n2.1. Account and Access Requirements To deploy this system, you will need an AWS account that meets the following conditions:\nAWS account with billing enabled (can be a personal account, AWS Educate account, or Free Tier account). Access rights with AdministratorAccess or at least the minimum required permissions for: EC2, S3, Lambda, SNS, DynamoDB, EventBridge, IAM, GuardDuty. Recommended: Enable Multi-Factor Authentication (MFA) for the root account or IAM user to enhance security. 2.2. AWS Free Tier Scope This workshop is designed to operate entirely within the AWS Free Tier limits, so there will be no costs incurred if you stay within the free usage limits.\nTable: Resource Usage Compared to Free Tier Limits\nService AWS Free Tier Limit Workshop Usage Amazon S3 5GB storage, 20,000 GET requests/month \u0026lt; 1GB, \u0026lt; 100 requests AWS Lambda 1 million requests/month, 400,000 GB-seconds \u0026lt; 1,000 requests Amazon SNS 1,000 email notifications/month \u0026lt; 50 notifications Amazon DynamoDB 25GB storage, 25 RCU/WCU \u0026lt; 1GB, only a few write operations Amazon GuardDuty Free for the first 30 days (first-time activation) Within free trial period Amazon EventBridge 100,000 events/month free \u0026lt; 1,000 events 2.3. Prepare the Practice Environment Before configuring the services, you should prepare a minimal practice environment as follows:\nRegion:\nIt is recommended to use us-east-1 or the region closest to you to reduce latency and increase compatibility with services.\nResource Naming Convention:\nTo make management easier, follow a consistent naming rule. For example:\nEC2 Instance: CompromisedEC2, MaliciousEC2 S3 Bucket: threat-list-[your-unique-id] IAM Role: LambdaSecurityRole Lambda Function: IsolateInstance EventBridge Rule: GuardDutyToLambdaRule SNS Topic: GuardDutyNotifications Valid Email Address:\nTo receive notifications from Amazon SNS, you must have an email address that can receive messages and confirm subscriptions.\nCheck IAM Permissions:\nEnsure the user/role you are using has permissions to create and modify the above-mentioned services. If using an IAM user, verify the attached policies.\n📌 Note: Avoid using the root account for deployment — instead, use an IAM user with appropriate permissions.\n"
+},
+{
+	"uri": "//localhost:1313/3-creates3/3.2-uploaddatatos3/",
+	"title": "Connect to Private instance",
+	"tags": [],
+	"description": "",
+	"content": "For Windows instance located in private subnet, there is no public IP, no internet gateway so it cannot go out internet.\nWith this type of instance, the traditional way is to use Bastion host technique which is expensive and laborious, but here we will use Session Manager with this type.\nBasically, the private instance still has to open the TCP 443 port to System Manager, but we don\u0026rsquo;t want to allow connection go out to the internet, but only in its VPC, to enhance our security posture.\nTo do that, we have to include the System Manager endpoint in the VPC, that is, using the VPC interface endpoint:\nVPC interface endpoint is attached to the subnet, so this method can be done not only with private subnet but also with public subnet, meaning that with public subnet, you can completely prohibit TCP 443 go out to the internet.\nContent: Enable DNS hostnames Create VPC Endpoint Connect Private Instance "
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.2-createiamrole/",
+	"title": "Create IAM Role",
+	"tags": [],
+	"description": "",
+	"content": "Create IAM Role In this step, we will proceed to create IAM Role. In this IAM Role, the policy AmazonSSMManagedInstanceCore will be assigned, this is the policy that allows the EC2 server to communicate with the Session Manager.\nGo to IAM service administration interface In the left navigation bar, click Roles. Click Create role. Click AWS service and click EC2. Click Next: Permissions. In the Search box, enter AmazonSSMManagedInstanceCore and press Enter to search for this policy. Click the policy AmazonSSMManagedInstanceCore. Click Next: Tags. Click Next: Review. Name the Role SSM-Role in Role Name Click Create Role . Next, we will make the connection to the EC2 servers we created with Session Manager.\n"
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.1-createec2/2.1.2-createpublicsubnet/",
+	"title": "Create Public Subnet",
+	"tags": [],
+	"description": "",
+	"content": "Create Public Subnet Click Subnets. Click Create subnet. At the Create subnet page. In the VPC ID section, click Lab VPC. In the Subnet name field, enter Lab Public Subnet. In the Availability Zone section, select the first Availability zone. In the field IPv4 CIRD block enter 10.10.1.0/24. Scroll to the bottom of the page, click Create subnet.\nClick Lab Public Subnet.\nClick Actions. Click Edit subnet settings. Click Enable auto-assign public IPv4 address. Click Save. Click Internet Gateways. Click Create internet gateway. At the Create internet gateway page. In the Name tag field, enter Lab IGW. Click Create internet gateway. After successful creation, click Actions. Click Attach to VPC. At the Attach to VPC page. In the Available VPCs section, select Lab VPC. Click Attach internet gateway. Check the successful attaching process as shown below. Next we will create a custom route table to assign to Lab Public Subnet. Click Route Tables. Click Create route table. At the Create route table page. In the Name field, enter Lab Publicrtb. In the VPC section, select Lab VPC. Click Create route table. After creating the route table successfully. Click Edit routes. At the Edit routes page. Click Add route. In the Destination field, enter 0.0.0.0/0 In the Target section, select Internet Gateway and then select Lab IGW. Click Save changes. Click the Subnet associations tab. Click Edit subnet associations to proceed with the associate custom route table we just created in Lab Public Subnet. At the Edit subnet associations page. Click on Lab Public Subnet. Click Save associations. Check that the route table information has been associated with Lab Public Subnet and the internet route information has been pointed to the Internet Gateway as shown below. "
+},
+{
+	"uri": "//localhost:1313/3-creates3/",
+	"title": "Connect to EC2 servers",
+	"tags": [],
+	"description": "",
+	"content": "In this step, we will connect to our EC2 servers, located in both the public and private subnets.\nContent 3.1. Connect to EC2 Public Server 3.2. Cconnect to EC2 Private Server\n"
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.1-createec2/2.1.3-createsecuritygroup/",
+	"title": "Create Private Subnet",
+	"tags": [],
+	"description": "",
+	"content": "Create Private Subnet Click Subnets. Click Create subnet. At the Create subnet page. In the VPC ID section, click Lab VPC. In the Subnet name field, enter Lab Private Subnet. In the Availability Zone section, select the first Availability zone. In the field IPv4 CIRD block enter 10.10.2.0/24. Scroll to the bottom of the page, click Create subnet. The next step is to create the necessary security groups for the lab.\n"
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.1-createec2/2.1.4-createec2/",
+	"title": "Create security groups",
+	"tags": [],
+	"description": "",
+	"content": "Create security groups In this step, we will proceed to create the security groups used for our instances. As you can see, these security groups will not need to open traditional ports to ssh like port 22 or remote desktop through port 3389.\nCreate security group for Linux instance located in public subnet Go to VPC service management console Click Security Group. Click Create security group. In the Security group name field, enter SG Public Linux Instance. In the Description section, enter SG Public Linux Instance. In the VPC section, click the X to reselect the Lab VPC you created for this lab. Keep Outbound rule, drag the mouse to the bottom. Click Create security group. As you can see, the security group we created to use for Linux public instances will not need to open traditional ports to ssh like port 22.\nCreate a security group for a Windows instance located in a private subnet After successfully creating a security group for the Linux instance located in the public subnet, click the Security Groups link to return to the Security groups list. Click Create security group.\nIn the Security group name field, enter SG Private Windows Instance.\nIn the Description section, enter SG Private Windows Instance. In the VPC section, click the X to reselect the Lab VPC you created for this lab. Scroll down. Add Outbound rule to allow TCP 443 connection to 10.10.0.0/16 ( CIDR of Lab VPC we created) Click Create security group. For the Instance in the private subnet, we will connect to the Session Manager endpoint over a TLS encrypted connection, so we need to allow outbound connection from our instance to VPC CIDR through port 443.\nCreate security group for VPC Endpoint In this step, we will create security group for VPC Endpoint of Session Manager. After successfully creating the security group for the Windows instance in the private subnet, click the Security Groups link to return to the Security groups list. Click Create security group. In the Security group name field, enter SG VPC Endpoint. In the Description section, enter SG VPC Endpoint. In the VPC section, click the X to reselect the Lab VPC you created for this lab. Scroll down. Delete Outbound rule. Add Inbound rule allowing TCP 443 to come from 10.10.0.0/16 ( CIDR of Lab VPC we created ). Click Create security group. So we are done creating the necessary security groups for EC2 instances and VPC Endpoints.\n"
+},
+{
+	"uri": "//localhost:1313/4-amazonguardduty/",
+	"title": "Manage session logs",
+	"tags": [],
+	"description": "",
+	"content": "With Session Manager, we can view the history of connections to instances through Session history. However, we have not seen the details of the commands used in a session.\nIn this section, we will proceed to create an S3 bucket and configure the session logs feature to see the details of the commands used in the session.\nContent: Update IAM Role Create S3 Bucket Create S3 Gateway endpoint Configure Session logs "
+},
+{
+	"uri": "//localhost:1313/5-dynamodb/",
+	"title": "Port Forwarding",
+	"tags": [],
+	"description": "",
+	"content": "\rPort Forwarding is a useful way to redirect network traffic from one IP address - Port to another IP address - Port. With Port Forwarding we can access an EC2 instance located in the private subnet from our workstation.\nWe will configure Port Forwarding for the RDP connection between our machine and Private Windows Instance located in the private subnet we created for this exercise.\nCreate IAM user with permission to connect SSM Go to IAM service management console Click Users , then click Add users. At the Add user page. In the User name field, enter Portfwd. Click on Access key - Programmatic access. Click Next: Permissions. Click Attach existing policies directly.\nIn the search box, enter ssm. Click on AmazonSSMFullAccess. Click Next: Tags, click Next: Reviews. Click Create user. Save Access key ID and Secret access key information to perform AWS CLI configuration.\nInstall and Configure AWS CLI and Session Manager Plugin To perform this hands-on, make sure your workstation has AWS CLI and Session Manager Plugin installed -manager-working-with-install-plugin.html)\nMore hands-on tutorials on installing and configuring the AWS CLI can be found here.\nWith Windows, when extracting the Session Manager Plugin installation folder, run the install.bat file with Administrator permission to perform the installation.\nImplement Portforwarding Run the command below in Command Prompt on your machine to configure Port Forwarding. aws ssm start-session --target (your ID windows instance) --document-name AWS-StartPortForwardingSession --parameters portNumber=\u0026#34;3389\u0026#34;,localPortNumber=\u0026#34;9999\u0026#34; --region (your region) Windows Private Instance Instance ID information can be found when you view the EC2 Windows Private Instance server details.\nExample command: C:\\Windows\\system32\u0026gt;aws ssm start-session --target i-06343d7377486760c --document-name AWS-StartPortForwardingSession --parameters portNumber=\u0026#34;3389\u0026#34;,localPortNumber=\u0026#34;9999\u0026#34; --region ap-southeast-1 If your command gives an error like below: SessionManagerPlugin is not found. Please refer to SessionManager Documentation here: http://docs.aws.amazon.com/console/systems-manager/session-manager-plugin-not-found\nProve that you have not successfully installed the Session Manager Plugin. You may need to relaunch Command Prompt after installing Session Manager Plugin.\nConnect to the Private Windows Instance you created using the Remote Desktop tool on your workstation. In the Computer section: enter localhost:9999. Return to the administration interface of the System Manager - Session Manager service. Click tab Session history. We will see session logs with Document name AWS-StartPortForwardingSession. Congratulations on completing the lab on how to use Session Manager to connect and store session logs in S3 bucket. Remember to perform resource cleanup to avoid unintended costs.\n"
+},
+{
+	"uri": "//localhost:1313/7-amazoneventbridge/7.1-eventbridgeconfiguration/",
+	"title": "Clean up resources",
+	"tags": [],
+	"description": "",
+	"content": "We will take the following steps to delete the resources we created in this exercise.\nDelete EC2 instance Go to EC2 service management console\nClick Instances. Select both Public Linux Instance and Private Windows Instance instances. Click Instance state. Click Terminate instance, then click Terminate to confirm. Go to IAM service management console\nClick Roles. In the search box, enter SSM. Click to select SSM-Role. Click Delete, then enter the role name SSM-Role and click Delete to delete the role. Click Users. Click on user Portfwd. Click Delete, then enter the user name Portfwd and click Delete to delete the user. Delete S3 bucket Access System Manager - Session Manager service management console.\nClick the Preferences tab. Click Edit. Scroll down. In the section S3 logging. Uncheck Enable to disable logging. Scroll down. Click Save. Go to S3 service management console\nClick on the S3 bucket we created for this lab. (Example: lab-fcj-bucket-0001 ) Click Empty. Enter permanently delete, then click Empty to proceed to delete the object in the bucket. Click Exit. After deleting all objects in the bucket, click Delete\nEnter the name of the S3 bucket, then click Delete bucket to proceed with deleting the S3 bucket. Delete VPC Endpoints Go to VPC service management console Click Endpoints. Select the 4 endpoints we created for the lab including SSM, SSMMESSAGES, EC2MESSAGES, S3GW. Click Actions. Click Delete VPC endpoints. In the confirm box, enter delete.\nClick Delete to proceed with deleting endpoints. Click the refresh icon, check that all endpoints have been deleted before proceeding to the next step.\nDelete VPC Go to VPC service management console\nClick Your VPCs. Click on Lab VPC. Click Actions. Click Delete VPC. In the confirm box, enter delete to confirm, click Delete to delete Lab VPC and related resources.\n"
+},
+{
+	"uri": "//localhost:1313/7-amazoneventbridge/7.2-integratewithlambda/",
+	"title": "Clean up resources",
+	"tags": [],
+	"description": "",
+	"content": "We will take the following steps to delete the resources we created in this exercise.\nDelete EC2 instance Go to EC2 service management console\nClick Instances. Select both Public Linux Instance and Private Windows Instance instances. Click Instance state. Click Terminate instance, then click Terminate to confirm. Go to IAM service management console\nClick Roles. In the search box, enter SSM. Click to select SSM-Role. Click Delete, then enter the role name SSM-Role and click Delete to delete the role. Click Users. Click on user Portfwd. Click Delete, then enter the user name Portfwd and click Delete to delete the user. Delete S3 bucket Access System Manager - Session Manager service management console.\nClick the Preferences tab. Click Edit. Scroll down. In the section S3 logging. Uncheck Enable to disable logging. Scroll down. Click Save. Go to S3 service management console\nClick on the S3 bucket we created for this lab. (Example: lab-fcj-bucket-0001 ) Click Empty. Enter permanently delete, then click Empty to proceed to delete the object in the bucket. Click Exit. After deleting all objects in the bucket, click Delete\nEnter the name of the S3 bucket, then click Delete bucket to proceed with deleting the S3 bucket. Delete VPC Endpoints Go to VPC service management console Click Endpoints. Select the 4 endpoints we created for the lab including SSM, SSMMESSAGES, EC2MESSAGES, S3GW. Click Actions. Click Delete VPC endpoints. In the confirm box, enter delete.\nClick Delete to proceed with deleting endpoints. Click the refresh icon, check that all endpoints have been deleted before proceeding to the next step.\nDelete VPC Go to VPC service management console\nClick Your VPCs. Click on Lab VPC. Click Actions. Click Delete VPC. In the confirm box, enter delete to confirm, click Delete to delete Lab VPC and related resources.\n"
+},
+{
+	"uri": "//localhost:1313/7-amazoneventbridge/",
+	"title": "Clean up resources",
+	"tags": [],
+	"description": "",
+	"content": "We will take the following steps to delete the resources we created in this exercise.\nDelete EC2 instance Go to EC2 service management console\nClick Instances. Select both Public Linux Instance and Private Windows Instance instances. Click Instance state. Click Terminate instance, then click Terminate to confirm. Go to IAM service management console\nClick Roles. In the search box, enter SSM. Click to select SSM-Role. Click Delete, then enter the role name SSM-Role and click Delete to delete the role. Click Users. Click on user Portfwd. Click Delete, then enter the user name Portfwd and click Delete to delete the user. Delete S3 bucket Access System Manager - Session Manager service management console.\nClick the Preferences tab. Click Edit. Scroll down. In the section S3 logging. Uncheck Enable to disable logging. Scroll down. Click Save. Go to S3 service management console\nClick on the S3 bucket we created for this lab. (Example: lab-fcj-bucket-0001 ) Click Empty. Enter permanently delete, then click Empty to proceed to delete the object in the bucket. Click Exit. After deleting all objects in the bucket, click Delete\nEnter the name of the S3 bucket, then click Delete bucket to proceed with deleting the S3 bucket. Delete VPC Endpoints Go to VPC service management console Click Endpoints. Select the 4 endpoints we created for the lab including SSM, SSMMESSAGES, EC2MESSAGES, S3GW. Click Actions. Click Delete VPC endpoints. In the confirm box, enter delete.\nClick Delete to proceed with deleting endpoints. Click the refresh icon, check that all endpoints have been deleted before proceeding to the next step.\nDelete VPC Go to VPC service management console\nClick Your VPCs. Click on Lab VPC. Click Actions. Click Delete VPC. In the confirm box, enter delete to confirm, click Delete to delete Lab VPC and related resources.\n"
+},
+{
+	"uri": "//localhost:1313/8-simplenotificationservice/",
+	"title": "Clean up resources",
+	"tags": [],
+	"description": "",
+	"content": "We will take the following steps to delete the resources we created in this exercise.\nDelete EC2 instance Go to EC2 service management console\nClick Instances. Select both Public Linux Instance and Private Windows Instance instances. Click Instance state. Click Terminate instance, then click Terminate to confirm. Go to IAM service management console\nClick Roles. In the search box, enter SSM. Click to select SSM-Role. Click Delete, then enter the role name SSM-Role and click Delete to delete the role. Click Users. Click on user Portfwd. Click Delete, then enter the user name Portfwd and click Delete to delete the user. Delete S3 bucket Access System Manager - Session Manager service management console.\nClick the Preferences tab. Click Edit. Scroll down. In the section S3 logging. Uncheck Enable to disable logging. Scroll down. Click Save. Go to S3 service management console\nClick on the S3 bucket we created for this lab. (Example: lab-fcj-bucket-0001 ) Click Empty. Enter permanently delete, then click Empty to proceed to delete the object in the bucket. Click Exit. After deleting all objects in the bucket, click Delete\nEnter the name of the S3 bucket, then click Delete bucket to proceed with deleting the S3 bucket. Delete VPC Endpoints Go to VPC service management console Click Endpoints. Select the 4 endpoints we created for the lab including SSM, SSMMESSAGES, EC2MESSAGES, S3GW. Click Actions. Click Delete VPC endpoints. In the confirm box, enter delete.\nClick Delete to proceed with deleting endpoints. Click the refresh icon, check that all endpoints have been deleted before proceeding to the next step.\nDelete VPC Go to VPC service management console\nClick Your VPCs. Click on Lab VPC. Click Actions. Click Delete VPC. In the confirm box, enter delete to confirm, click Delete to delete Lab VPC and related resources.\n"
+},
+{
+	"uri": "//localhost:1313/6-lambda/",
+	"title": "Cleanup",
+	"tags": [],
+	"description": "",
+	"content": "We will take the following steps to delete the resources we created in this exercise.\nDelete EC2 instance Go to EC2 service management console\nClick Instances. Select both Public Linux Instance and Private Windows Instance instances. Click Instance state. Click Terminate instance, then click Terminate to confirm. Go to IAM service management console\nClick Roles. In the search box, enter SSM. Click to select SSM-Role. Click Delete, then enter the role name SSM-Role and click Delete to delete the role. Click Users. Click on user Portfwd. Click Delete, then enter the user name Portfwd and click Delete to delete the user. Delete S3 bucket Access System Manager - Session Manager service management console.\nClick the Preferences tab. Click Edit. Scroll down. In the section S3 logging. Uncheck Enable to disable logging. Scroll down. Click Save. Go to S3 service management console\nClick on the S3 bucket we created for this lab. (Example: lab-fcj-bucket-0001 ) Click Empty. Enter permanently delete, then click Empty to proceed to delete the object in the bucket. Click Exit. After deleting all objects in the bucket, click Delete\nEnter the name of the S3 bucket, then click Delete bucket to proceed with deleting the S3 bucket. Delete VPC Endpoints Go to VPC service management console Click Endpoints. Select the 4 endpoints we created for the lab including SSM, SSMMESSAGES, EC2MESSAGES, S3GW. Click Actions. Click Delete VPC endpoints. In the confirm box, enter delete.\nClick Delete to proceed with deleting endpoints. Click the refresh icon, check that all endpoints have been deleted before proceeding to the next step.\nDelete VPC Go to VPC service management console\nClick Your VPCs. Click on Lab VPC. Click Actions. Click Delete VPC. In the confirm box, enter delete to confirm, click Delete to delete Lab VPC and related resources.\n"
+},
+{
+	"uri": "//localhost:1313/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

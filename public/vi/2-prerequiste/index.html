@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="vi" class="js csstransforms3d">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.147.8">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Các bước chuẩn bị :: AWS System Manager</title>
+
+    
+    <link href="/css/nucleus.css?1754930281" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754930281" rel="stylesheet">
+    <link href="/css/hybrid.css?1754930281" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754930281" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754930281" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754930281" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754930281" rel="stylesheet">
+    <link href="/css/theme.css?1754930281" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754930281" rel="stylesheet">
+    
+    <link href="/css/theme-workshop.css?1754930281" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1754930281"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+
+  </head>
+  <body class="" data-url="/vi/2-prerequiste/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1754930281"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754930281"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/localhost:1313\/\/vi";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1754930281"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/1-introduce/" title="Giới thiệu" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/1-introduce/">
+           <b> 1. </b> Giới thiệu
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-prerequiste/" title="Các bước chuẩn bị" class="dd-item 
+        
+        active
+        
+        ">
+      <a href="/vi/2-prerequiste/">
+           <b> 2. </b> Các bước chuẩn bị
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-prerequiste/2.1-createec2/" title="Chuẩn bị VPC và EC2" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/2-prerequiste/2.1-createec2/">
+           <b> 2.1 </b> Chuẩn bị VPC và EC2
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-prerequiste/2.1-createec2/2.1.1-createvpc/" title="Tạo VPC " class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/2-prerequiste/2.1-createec2/2.1.1-createvpc/">
+           <b> 2.1.1 </b> Tạo VPC 
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-prerequiste/2.1-createec2/2.1.2-createpublicsubnet/" title="Tạo Public subnet" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/2-prerequiste/2.1-createec2/2.1.2-createpublicsubnet/">
+           <b> 2.1.2 </b> Tạo Public subnet
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-prerequiste/2.1-createec2/2.1.3-createsecuritygroup/" title="Tạo Security Group cho Public và Isolated" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/2-prerequiste/2.1-createec2/2.1.3-createsecuritygroup/">
+           <b> 2.1.3 </b> Tạo Security Group cho Public và Isolated
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-prerequiste/2.1-createec2/2.1.4-createec2/" title="Tạo EC2 Instance" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/2-prerequiste/2.1-createec2/2.1.4-createec2/">
+           <b> 2.1.4 </b> Tạo EC2 Instance
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-prerequiste/2.2-createiamrole/" title="Tạo IAM Role" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/2-prerequiste/2.2-createiamrole/">
+           <b> 2.2 </b> Tạo IAM Role
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/3-creates3/" title="Tạo S3" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/3-creates3/">
+           <b> 3. </b> Tạo S3
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/3-creates3/3.1-creates3bucket/" title="Tạo S3 bucket" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/3-creates3/3.1-creates3bucket/">
+           <b> 3.1. </b> Tạo S3 bucket
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/3-creates3/3.2-uploaddatatos3/" title="Tải dữ liệu " class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/3-creates3/3.2-uploaddatatos3/">
+           <b> 3.2. </b> Tải dữ liệu 
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/4-amazonguardduty/" title="Amazon GuardDuty" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/4-amazonguardduty/">
+           <b> 4. </b> Amazon GuardDuty
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/5-dynamodb/" title="Amazon DynamoDB" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/5-dynamodb/">
+           <b> 5. </b> Amazon DynamoDB
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/6-lambda/" title="Amazon Lambda" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/6-lambda/">
+           <b> 6. </b> Amazon Lambda
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/7-amazoneventbridge/" title="Amazon EventBridge" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/7-amazoneventbridge/">
+          <b> 7. </b>Amazon EventBridge
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/7-amazoneventbridge/7.1-eventbridgeconfiguration/" title="Tạo EventBridge " class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/7-amazoneventbridge/7.1-eventbridgeconfiguration/">
+          <b>7.1. </b>Tạo EventBridge 
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/7-amazoneventbridge/7.2-integratewithlambda/" title="Tích hợp với Lambda" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/7-amazoneventbridge/7.2-integratewithlambda/">
+          <b>7.2. </b>Tích hợp với Lambda
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/8-simplenotificationservice/" title="Amazon SNS" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/8-simplenotificationservice/">
+          <b>8. </b>Amazon SNS
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/8-simplenotificationservice/8.1-createsns/" title="Tạo SNS" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/8-simplenotificationservice/8.1-createsns/">
+          <b>8.1. </b>Tạo SNS
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/8-simplenotificationservice/8.2-integratewithlambda/" title="Tích hợp với Lambda" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/8-simplenotificationservice/8.2-integratewithlambda/">
+          <b>8.2. </b>Tích hợp với Lambda
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/9-achievedresult/" title="Kết quả đạt được" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/9-achievedresult/">
+          <b>9.</b>Kết quả đạt được
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/10-cleanupresources/" title="Clean Up Resources" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/10-cleanupresources/">
+          <b>10.</b>Clean Up Resources
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"><i class='fab fa-facebook'></i> AWS Study Group</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+                    
+                    
+                      <option id="en" value="//localhost:1313/2-prerequiste/">English</option>
+                    
+                  
+              
+                  
+              
+          
+              
+              
+                  
+              
+                  
+                    
+                    
+                      <option id="vi" value="//localhost:1313/vi/2-prerequiste/" selected>Tiếng Việt</option>
+                    
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <left>
+    
+     <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7920860&style=0038&nbdigits=9&type=page&initCount=0" title="Migrate" Alt="web counter"   border="0" /></a>  <br>
+     <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0" title="Total CLoud Journey" Alt="web counter"   border="0"   />
+     
+</left>
+<left>
+    <br>
+    <br>
+        <b> Last Updated </b> <br>
+        <i><font color=orange>30-01-2022</font></i>
+    </left>
+    <left>
+        <br>
+        <br>
+            <b> Team </b> <br>
+           
+            <i> <a href="https://www.linkedin.com/in/sutrinh/"  style="color:orange">Sử Trịnh  </a> <br>
+                <a href="https://www.linkedin.com/in/jotaguy"  style="color:orange">Gia Hưng </a> <br>
+                <a href="https://www.linkedin.com/in/hiepnguyendt"  style="color:orange">Thanh Hiệp </a>
+               
+        </i>
+        </left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='/vi/'>Xây dựng hệ thống tự động gửi cảnh báo bảo mật đa tầng trên AWS </a> > Các bước chuẩn bị
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#2-các-bước-chuẩn-bị-ban-đầu">2. Các bước chuẩn bị ban đầu</a>
+      <ul>
+        <li><a href="#21-yêu-cầu-tài-khoản-và-quyền-truy-cập">2.1. Yêu cầu tài khoản và quyền truy cập</a></li>
+        <li><a href="#22-phạm-vi-free-tier-của-aws">2.2. Phạm vi Free Tier của AWS</a></li>
+        <li><a href="#23-chuẩn-bị-môi-trường-thực-hành">2.3. Chuẩn bị môi trường thực hành</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Các bước chuẩn bị
+            </h1>
+          
+
+        
+
+
+
+	<h2 id="2-các-bước-chuẩn-bị-ban-đầu">2. Các bước chuẩn bị ban đầu</h2>
+<p>Trước khi bắt đầu xây dựng hệ thống phát hiện và phản ứng bảo mật tự động, bạn cần chuẩn bị đầy đủ các điều kiện tiên quyết về tài khoản <strong>AWS</strong>, cũng như thực hiện một số bước thiết lập về môi trường, tài nguyên và quyền truy cập để đảm bảo quá trình triển khai diễn ra thuận lợi và chính xác.</p>
+<h3 id="21-yêu-cầu-tài-khoản-và-quyền-truy-cập">2.1. Yêu cầu tài khoản và quyền truy cập</h3>
+<p>Để triển khai hệ thống này, bạn cần một tài khoản AWS đáp ứng các điều kiện sau:</p>
+<ul>
+<li><strong>Tài khoản AWS đã kích hoạt billing</strong> (có thể là tài khoản cá nhân, tài khoản trong chương trình AWS Educate hoặc Free Tier).</li>
+<li>Có quyền truy cập <strong>AdministratorAccess</strong> hoặc tối thiểu các quyền cần thiết cho:
+<ul>
+<li>EC2, S3, Lambda, SNS, DynamoDB, EventBridge, IAM, GuardDuty.</li>
+</ul>
+</li>
+<li><strong>Khuyến khích:</strong> Bật <strong>Multi-Factor Authentication (MFA)</strong> cho tài khoản root hoặc IAM user để tăng cường bảo mật.</li>
+</ul>
+<h3 id="22-phạm-vi-free-tier-của-aws">2.2. Phạm vi Free Tier của AWS</h3>
+<p>Workshop này được thiết kế để chạy <strong>toàn bộ trong giới hạn AWS Free Tier</strong>, không phát sinh chi phí nếu bạn chưa vượt hạn mức sử dụng miễn phí.</p>
+<p><strong>Bảng: Mức sử dụng tài nguyên so với giới hạn Free Tier</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Dịch vụ (Service)</th>
+          <th>Giới hạn Free Tier</th>
+          <th>Mức sử dụng trong Workshop</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Amazon S3</strong></td>
+          <td>5GB lưu trữ, 20,000 lượt GET/tháng</td>
+          <td>&lt; 1GB, &lt; 100 lượt truy cập</td>
+      </tr>
+      <tr>
+          <td><strong>AWS Lambda</strong></td>
+          <td>1 triệu request/tháng, 400,000 GB-seconds</td>
+          <td>&lt; 1,000 request</td>
+      </tr>
+      <tr>
+          <td><strong>Amazon SNS</strong></td>
+          <td>1,000 thông báo email/tháng</td>
+          <td>&lt; 50 thông báo</td>
+      </tr>
+      <tr>
+          <td><strong>Amazon DynamoDB</strong></td>
+          <td>25GB lưu trữ, 25 RCU/WCU</td>
+          <td>&lt; 1GB, chỉ vài thao tác ghi</td>
+      </tr>
+      <tr>
+          <td><strong>Amazon GuardDuty</strong></td>
+          <td>Free trong 30 ngày (dùng thử cho lần đầu bật)</td>
+          <td>Trong thời gian dùng thử</td>
+      </tr>
+      <tr>
+          <td><strong>Amazon EventBridge</strong></td>
+          <td>Miễn phí 100,000 sự kiện/tháng</td>
+          <td>&lt; 1,000 sự kiện</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="23-chuẩn-bị-môi-trường-thực-hành">2.3. Chuẩn bị môi trường thực hành</h3>
+<p>Trước khi bắt đầu các bước cấu hình dịch vụ, bạn cần chuẩn bị một môi trường thực hành tối thiểu như sau:</p>
+<ul>
+<li>
+<p><strong>Khu vực (Region):</strong><br>
+Khuyến nghị sử dụng khu vực <code>us-east-1</code> hoặc khu vực gần bạn nhất để giảm độ trễ và tăng tính tương thích với các dịch vụ.</p>
+</li>
+<li>
+<p><strong>Đặt tên tài nguyên:</strong><br>
+Để dễ quản lý, nên tuân theo quy tắc đặt tên thống nhất. Ví dụ:</p>
+<ul>
+<li>EC2 Instance: <code>CompromisedEC2</code>, <code>MaliciousEC2</code></li>
+<li>S3 Bucket: <code>threat-list-[your-unique-id]</code></li>
+<li>IAM Role: <code>LambdaSecurityRole</code></li>
+<li>Lambda Function: <code>IsolateInstance</code></li>
+<li>EventBridge Rule: <code>GuardDutyToLambdaRule</code></li>
+<li>SNS Topic: <code>GuardDutyNotifications</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Tài khoản email hợp lệ:</strong><br>
+Để nhận thông báo từ Amazon SNS, bạn cần có một địa chỉ email có thể nhận thư và xác nhận đăng ký.</p>
+</li>
+<li>
+<p><strong>Kiểm tra quyền truy cập IAM:</strong><br>
+Đảm bảo user/role bạn đang dùng có quyền tạo và chỉnh sửa các dịch vụ nêu trên. Nếu sử dụng IAM user, kiểm tra lại các policy đính kèm.</p>
+</li>
+</ul>
+<blockquote>
+<p>📌 Lưu ý: Hạn chế sử dụng tài khoản root để triển khai — thay vào đó nên sử dụng IAM user có quyền phù hợp.</p></blockquote>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/vi/1-introduce/" title="Giới thiệu"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/vi/2-prerequiste/2.1-createec2/" title="Chuẩn bị VPC và EC2" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1754930281"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754930281"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754930281"></script>
+    <script src="/js/jquery.sticky.js?1754930281"></script>
+    <script src="/js/featherlight.min.js?1754930281"></script>
+    <script src="/js/highlight.pack.js?1754930281"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754930281"></script>
+    <script src="/js/learn.js?1754930281"></script>
+    <script src="/js/hugo-learn.js?1754930281"></script>
+
+    <link href="/mermaid/mermaid.css?1754930281" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754930281"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
+
