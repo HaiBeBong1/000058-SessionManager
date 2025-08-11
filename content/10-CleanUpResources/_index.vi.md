@@ -12,7 +12,7 @@ pre: "<b>10.</b>"
 - Vào [EC2 console](https://console.aws.amazon.com/ec2/v2/home) → **Instances**  
 - Tick chọn **tất cả instance** cần xóa  
 - **Instance state** → **Terminate (delete) instance**
-![CleanUpResources](/images/10-CleanUpResources/1.png)
+![CleanUpResources](/000058-SessionManager/images/10-CleanUpResources/1.png)
 
 2. Xác nhận xóa Instances
 - Kiểm tra danh sách Instance ID, cột **Termination protection** phải là *Disabled*  
